@@ -8,7 +8,7 @@ const store = configureStore({
         [apiSlice.reducerPath]: apiSlice.reducer,
         user: userReducer,
     },
-    middlewares: (getDefaultMiddleware) =>
+    middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware),
     devTools: true,
 });
