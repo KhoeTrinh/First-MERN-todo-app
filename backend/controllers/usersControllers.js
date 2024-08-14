@@ -1,6 +1,7 @@
 import User from '../models/usersModals.js';
 import asyncHandler from '../middlewares/asyncHandler.js';
 import bcrypt from 'bcryptjs';
+import generateToken from '../utils/createToken.js';
 
 const createUser = asyncHandler(async (req, res) => {
     try {
@@ -28,6 +29,8 @@ const createUser = asyncHandler(async (req, res) => {
 
         try {
             await newUser.save();
+            generateToken(res, newUser._id);
+
             res.json({
                 id: newUser._id,
                 username: newUser.username,
@@ -61,14 +64,16 @@ const loginUser = asyncHandler(async (req, res) => {
                 existingUser.password
             );
 
-            if(isValidPassword) {
+            if (isValidPassword) {
+                generateToken(res, existingUser._id);
+
                 res.json({
                     id: existingUser._id,
                     username: existingUser.username,
                     email: existingUser.email,
                     isAdmin: existingUser.isAdmin,
-                    token,
                 });
+                return;
             }
         }
     } catch (err) {
@@ -77,4 +82,17 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 });
 
-export { createUser, loginUser };
+const logoutUser = asyncHandler(async (req, res) => {
+    try {
+        res.cookie('jwt', '', {
+            httpOnly: true,
+            expires: new Date(0),
+        });
+        res.status(200).json({ message: 'logout successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: err.message });
+    }
+});
+
+export { createUser, loginUser, logoutUser };
