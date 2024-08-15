@@ -1,7 +1,7 @@
 const ToggleArrow = ({userInfo, showSidebar}) => {
     return (
         <>
-            <span className='text-lg px-4 py-2 font-semibold'>
+            <span className='text-lg pl-16 pr-4 py-2 font-semibold'>
                 {userInfo.username}
             </span>
             <span

@@ -23,15 +23,16 @@ const Navigation = () => {
 
     const [logoutApiCall] = useLogoutMutation();
 
-    const logoutHandler = async() => {
+    const logoutHandler = async () => {
         try {
-            await logoutApiCall().unwrap()
+            await logoutApiCall().unwrap();
             dispatch(logout());
+            closeSidebar();
             navigate('/login');
         } catch (err) {
             console.error(err);
         }
-    }
+    };
 
     return (
         <div className='bg-white'>
@@ -79,7 +80,10 @@ const Navigation = () => {
                 </div>
 
                 <div className='relative flex items-center w-[15rem]'>
-                    <button onClick={toggleSidebar}>
+                    <button
+                        onClick={toggleSidebar}
+                        className='transition-transform transform hover:scale-105'
+                    >
                         {userInfo ? (
                             <ToggleArrow
                                 userInfo={userInfo}
@@ -91,60 +95,62 @@ const Navigation = () => {
                     </button>
 
                     {showSidebar && userInfo && (
-                        <ul className='absolute right-0 mt-2 mr-14 bg-pink-50 text-cyan-400 top-20 rounded-lg'>
-                            {userInfo.isAdmin && (
-                                <>
-                                    <li>
-                                        <Link
-                                            to={'/admin/dashboard'}
-                                            className='block font-semibold px-5 py-3'
-                                        >
-                                            Dashboard
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to={'/admin/todotyplist'}
-                                            className='block font-semibold px-5 py-3'
-                                        >
-                                            Todo Type
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to={'/admin/userlist'}
-                                            className='block font-semibold px-5 py-3'
-                                        >
-                                            Users
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to={'/admin/communitylist'}
-                                            className='block font-semibold px-5 py-3'
-                                        >
-                                            Community
-                                        </Link>
-                                    </li>
-                                </>
-                            )}
-                            <li>
-                                <Link
-                                    to={'/profile'}
-                                    className='block font-semibold px-5 py-3'
-                                >
-                                    Profile
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    onClick={logoutHandler}
-                                    className='block font-semibold px-5 py-3'
-                                >
-                                    Logout
-                                </Link>
-                            </li>
-                        </ul>
+                        <>
+                            <ul className='absolute right-0 mt-2 mr-14 bg-pink-50 text-cyan-400 top-20 rounded-lg overflow-hidden'>
+                                {userInfo.isAdmin && (
+                                    <>
+                                        <li>
+                                            <Link
+                                                to={'/admin/dashboard'}
+                                                className='block font-semibold px-5 py-3 hover:bg-stone-200'
+                                            >
+                                                Dashboard
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to={'/admin/todotyplist'}
+                                                className='block font-semibold px-5 py-3 hover:bg-stone-200'
+                                            >
+                                                Todo Type
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to={'/admin/userlist'}
+                                                className='block font-semibold px-5 py-3 hover:bg-stone-200'
+                                            >
+                                                Users
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to={'/admin/communitylist'}
+                                                className='block font-semibold px-5 py-3 hover:bg-stone-200'
+                                            >
+                                                Community
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
+                                <li>
+                                    <Link
+                                        to={'/profile'}
+                                        className='block font-semibold px-5 py-3 hover:bg-stone-200'
+                                    >
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        onClick={logoutHandler}
+                                        className='block font-semibold px-5 py-3 hover:bg-stone-200'
+                                    >
+                                        Logout
+                                    </Link>
+                                </li>
+                            </ul>
+                        </>
                     )}
 
                     {!userInfo && (
