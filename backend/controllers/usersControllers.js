@@ -97,7 +97,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const getUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
-    
+
     if (user) {
         res.json({
             id: user._id,
@@ -112,30 +112,51 @@ const getUser = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
-    console.log(req)
-  
-    if (user) {
-      user.username = req.body.username || user.username;
-      user.email = req.body.email || user.email;
-  
-      if (req.body.password) {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        user.password = hashedPassword;
-      }
-  
-      const updatedUser = await user.save();
-  
-      res.json({
-        _id: updatedUser._id,
-        username: updatedUser.username,
-        email: updatedUser.email,
-        isAdmin: updatedUser.isAdmin,
-      });
-    } else {
-      res.status(404);
-      throw new Error("User not found");
-    }
-  });
+    console.log(req);
 
-export { createUser, loginUser, logoutUser, getUser, updateUser };
+    if (user) {
+        user.username = req.body.username || user.username;
+        user.email = req.body.email || user.email;
+
+        if (req.body.password) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(
+                req.body.password,
+                salt
+            );
+            user.password = hashedPassword;
+        }
+
+        const updatedUser = await user.save();
+
+        res.json({
+            _id: updatedUser._id,
+            username: updatedUser.username,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+        });
+    } else {
+        console.log('Error');
+        res.status(404).json({ message: 'User not found' });
+    }
+});
+
+const getAllUsers = asyncHandler(async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.json(users);
+    } catch (err) {
+        console.log('Error');
+        res.status(404).json({ message: 'User not found' });
+ 
+    }
+});
+
+export {
+    createUser,
+    loginUser,
+    logoutUser,
+    getUser,
+    updateUser,
+    getAllUsers,
+};

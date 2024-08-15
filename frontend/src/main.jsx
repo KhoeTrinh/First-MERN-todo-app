@@ -14,11 +14,14 @@ import PrivateRoutes from './components/PrivateRoutes.jsx'
 
 import Login from './pages/Auth/Login.jsx';
 import Register from './pages/Auth/Register.jsx';
+
 import Profile from './pages/Users/Profile.jsx';
+import Home from './pages/Home.jsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<App />}>
+            <Route path='/' element={<Home />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/register' element={<Register />}/>
 
