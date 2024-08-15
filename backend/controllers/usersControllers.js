@@ -112,7 +112,6 @@ const getUser = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
-    console.log(req);
 
     if (user) {
         user.username = req.body.username || user.username;
