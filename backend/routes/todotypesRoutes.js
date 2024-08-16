@@ -14,10 +14,10 @@ import {
 } from '../middlewares/authenticateHandler.js';
 
 router.route('/').post(createTodotypes);
-router.route('/todotypes').get(getAllTodotypes);
 router
     .route('/:id')
     .put(putTodotypes)
     .delete(deleteTodotypes);
+router.route('/todotypes').get(getAllTodotypes);
 
 export default router;

@@ -54,18 +54,38 @@ const Todotypes = () => {
 
         try {
             const result = await updateTodotype({
+                data: { name: updatingName },
                 id: selectedTodotype._id,
-                name: updatingName,
             }).unwrap();
             if (result.error) {
                 toast.error(result.error);
                 return;
             } else {
+                refetch();
                 setModalVisible(false);
                 setSelectedTodotype(null);
                 setUpdatingName('');
-                refetch();
                 toast.success('Todotype updated successfully');
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error(err?.data?.message || err.message);
+        }
+    };
+
+    const handleDeleteTodotype = async (e) => {
+        e.preventDefault();
+
+        try {
+            const result = await deleteTodotype(selectedTodotype._id);
+            if (result.error) {
+                toast.error(result.error);
+                return;
+            } else {
+                refetch();
+                setModalVisible(false);
+                setSelectedTodotype(null);
+                toast.success('Todotype deleted successfully');
             }
         } catch (err) {
             console.error(err);
@@ -110,7 +130,7 @@ const Todotypes = () => {
                         setValue={setUpdatingName}
                         handleSubmit={handleUpdateTodotype}
                         buttonText='Update'
-                        // handleDelete={handleDeleteTodotype}
+                        handleDelete={handleDeleteTodotype}
                     />
                 </Modal>
             </div>
