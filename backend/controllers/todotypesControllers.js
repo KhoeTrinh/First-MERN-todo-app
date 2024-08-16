@@ -22,15 +22,9 @@ const createTodotypes = asyncHandler(async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-const getTodotypes = asyncHandler(async (req, res) => {
+const getAllTodotypes = asyncHandler(async (req, res) => {
     try {
-        const todo = await Todotype.findById(req.params.id);
-
-        if (!todo) {
-            return res
-                .status(404)
-                .json({ message: 'Todo type not found' });
-        }
+        const todo = await Todotype.find({});
         res.json(todo);
     } catch (err) {
         console.error(err);
@@ -71,4 +65,4 @@ const deleteTodotypes = asyncHandler(async (req, res) => {
     }
 });
 
-export { createTodotypes, getTodotypes, putTodotypes, deleteTodotypes };
+export { createTodotypes, getAllTodotypes, putTodotypes, deleteTodotypes };

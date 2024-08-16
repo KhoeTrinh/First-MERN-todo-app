@@ -96,7 +96,7 @@ const Navigation = () => {
 
                     {showSidebar && userInfo && (
                         <>
-                            <ul className='absolute right-0 mt-2 mr-14 bg-pink-50 text-cyan-400 top-20 rounded-lg overflow-hidden'>
+                            <ul className='absolute right-0 mt-2 mr-14 bg-pink-50 text-cyan-400 top-20 rounded-lg overflow-hidden z-50'>
                                 {userInfo.isAdmin && (
                                     <>
                                         <li>
@@ -109,7 +109,7 @@ const Navigation = () => {
                                         </li>
                                         <li>
                                             <Link
-                                                to={'/admin/todotyplist'}
+                                                to={'/admin/todotypelist'}
                                                 className='block font-semibold px-5 py-3 hover:bg-stone-200'
                                             >
                                                 Todo Type

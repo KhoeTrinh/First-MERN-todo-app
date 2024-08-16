@@ -3,7 +3,7 @@ const router = express.Router();
 
 import {
     createTodotypes,
-    getTodotypes,
+    getAllTodotypes,
     putTodotypes,
     deleteTodotypes,
 } from '../controllers/todotypesControllers.js';
@@ -14,9 +14,9 @@ import {
 } from '../middlewares/authenticateHandler.js';
 
 router.route('/').post(createTodotypes);
+router.route('/todotypes').get(getAllTodotypes);
 router
     .route('/:id')
-    .get(getTodotypes)
     .put(putTodotypes)
     .delete(deleteTodotypes);
 

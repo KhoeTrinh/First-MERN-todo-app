@@ -18,6 +18,10 @@ import Register from './pages/Auth/Register.jsx';
 import Profile from './pages/Users/Profile.jsx';
 import Home from './pages/Home.jsx';
 
+import AdminRoutes from './pages/Admin/AdminRoutes.jsx'
+
+import Todotypes from './pages/Admin/Todotypes.jsx';
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<App />}>
@@ -27,6 +31,10 @@ const router = createBrowserRouter(
 
             <Route path='' element={<PrivateRoutes />} >
                 <Route path='/profile' element={<Profile />}/>   
+            </Route>
+
+            <Route path='/admin' element={<AdminRoutes />} >
+                <Route path='todotypelist' element={<Todotypes />}/>   
             </Route>
         </Route>
     )
