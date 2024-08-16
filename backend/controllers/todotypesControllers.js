@@ -15,7 +15,7 @@ const createTodotypes = asyncHandler(async (req, res) => {
                 message: 'A todo type with this name already exists.',
             });
         }
-        const newTodotype = await Todotype.create({ name }).save();
+        const newTodotype = new Todotype({ name }).save();
         res.json(newTodotype);
     } catch (err) {
         console.error(err);

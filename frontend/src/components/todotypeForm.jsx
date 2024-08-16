@@ -1,4 +1,4 @@
-const todotypeForm = ({
+const TodotypeForm = ({
     value,
     setValue,
     handleSubmit,
@@ -9,11 +9,11 @@ const todotypeForm = ({
         <div>
             <form
                 onSubmit={handleSubmit}
-                className='spacec-y-3'
+                className='space-y-3'
             >
                 <input
                     type='text'
-                    className='py-3 px-4 border rounded-lg ww-full'
+                    className='py-3 px-4 border rounded-lg w-full'
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                 />
@@ -22,7 +22,7 @@ const todotypeForm = ({
                     <button
                         className='bg-cyan-500 text-white py-2 
                     px-4 rounded-lg hover:bg-cyan-600 focus:outline-none 
-                    focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-500'
+                    focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-500 ml-3'
                     >
                         {buttonText}
                     </button>
@@ -43,4 +43,4 @@ const todotypeForm = ({
     );
 };
 
-export default todotypeForm;
+export default TodotypeForm;
